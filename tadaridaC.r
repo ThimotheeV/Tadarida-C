@@ -20,28 +20,29 @@ if(length(args)==1 && args[1] == "--help"){
 }
 
 if(length(args)!=2){
-  print("usage: Rscript TadaridaC.r <directory> <classifier>")
+  print("usage: Rscript TadaridaC.r <file> <classifier>")
   q("no",1,"False")
 }
 tadir=args[1]
 class=args[2]
 
-#get the .ta files list
-obslist=list.files(tadir,pattern=".ta$",full.names=T,recursive=F)
+class(tadir)
+grep(".ta",tadir)
 
-if (length(obslist) == 0) {
-  print("no .ta files to process")
-  q("no",2,"False")
-}
+#get the .ta files list
+if (!grep(".ta",tadir)) { #if tadir haven'y .ta in his name
+    print("file wasn't a .ta files")
+    q("no",2,"False")
+  }
 
 # load the classifier
 if (exists("ClassifEspA")==FALSE) load(class)
 
 #concatenate all the features table
 my.data <- list()
-for (i in 1:length(obslist)){
-  my.data[[i]] <- read.csv(obslist[[i]],sep="\t")
-}
+
+my.data[[1]] <- read.csv(tadir,sep="\t")
+
 CTP=as.data.frame(rbindlist(my.data))
 
 #get the predictions and the main features (noticeably the file name)
@@ -103,7 +104,7 @@ IdTot2=cbind(IdTot,VersionD=CTP$Version[1],VersionC=Version)
 #writing .tc files
 for (i in 1:nlevels(IdTot2$Group.1))
 {
-  fichierid=paste(tadir,'/',substr(levels(IdTot2$Group.1)[i],1,(nchar(levels(IdTot2$Group.1)[i])-4)),".tc", sep="")
+  fichierid=paste(substr(tadir,1,(nchar(tadir)-3)),".tc", sep="")
   write.csv(subset(IdTot2,IdTot2$Group.1==levels(IdTot2$Group.1)[i]),fichierid,row.names=FALSE)  
 }
 
