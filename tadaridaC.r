@@ -26,9 +26,6 @@ if(length(args)!=2){
 tadir=args[1]
 class=args[2]
 
-class(tadir)
-grep(".ta",tadir)
-
 #get the .ta files list
 if (!grep(".ta",tadir)) { #if tadir haven'y .ta in his name
     print("file wasn't a .ta files")
@@ -104,7 +101,7 @@ IdTot2=cbind(IdTot,VersionD=CTP$Version[1],VersionC=Version)
 #writing .tc files
 for (i in 1:nlevels(IdTot2$Group.1))
 {
-  fichierid=paste(substr(tadir,1,(nchar(tadir)-3)),".tc", sep="")
+  fichierid=paste("./",substr(tadir,(nchar(tadir)-13),(nchar(tadir)-4)),".tc", sep="")
   write.csv(subset(IdTot2,IdTot2$Group.1==levels(IdTot2$Group.1)[i]),fichierid,row.names=FALSE)  
 }
 
