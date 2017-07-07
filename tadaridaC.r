@@ -1,4 +1,5 @@
-#!/usr/bin/env Python
+#!/usr/bin/env Rscript
+
 options(error = function() traceback(2))
 
 #get arguments from the command line
