@@ -1,4 +1,4 @@
-#!/usr/bin/env Python
+#!/usr/bin/env Rscript
 
 options(error = function() traceback(2))
 
