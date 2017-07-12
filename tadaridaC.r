@@ -1,4 +1,4 @@
-#!/bin/Rscript
+#!/usr/bin/env R 
 
 options(error = function() traceback(2))
 
