@@ -105,7 +105,7 @@ for (i in 1:nlevels(IdTot2$Group.1))
 {
   nomb=gsub(".*?/dataset_(.*?).dat", "\\1", tadir)
   fichierid=paste("./dataset_",nomb,".tc", sep="")
-  write.csv(subset(IdTot2,IdTot2$Group.1==levels(IdTot2$Group.1)[i]),fichierid,row.names=FALSE)  
+  write.table(subset(IdTot2,IdTot2$Group.1==levels(IdTot2$Group.1)[i]),fichierid,row.names=FALSE,sep="\t")  
 }
 
 #suppressing every objects except the classifier (which is time-consuming to load)
